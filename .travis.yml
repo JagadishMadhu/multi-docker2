@@ -9,7 +9,7 @@ before-install:
   - docker build -t jagadishmadhu/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true jagadishmadhu/react-test npm test
+  - docker run -e CI=true -t jagadishmadhu/react-test npm test
 
 after_success:
   - docker build -t jagadishmadhu/multi-client ./client

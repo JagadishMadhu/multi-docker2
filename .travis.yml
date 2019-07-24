@@ -5,12 +5,12 @@ services:
 
 before-install:
   # Log into the docker CLI
-  - echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
   - docker build -t jagadishmadhu/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   # Log into the docker CLI
-  - echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t jagadishmadhu/react-test -f ./client/Dockerfile.dev ./client
   - docker run -e CI=true -t jagadishmadhu/react-test npm test
 
@@ -20,7 +20,7 @@ after_success:
   - docker build -t jagadishmadhu/multi-server ./server
   - docker build -t jagadishmadhu/multi-worker ./worker
   # Log into the docker CLI
-  - echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
   # Take those images and push them to docker hub.
   - docker push jagadishmadhu/multi-client
   - docker push jagadishmadhu/multi-nginx
